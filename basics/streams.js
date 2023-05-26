@@ -1,5 +1,8 @@
 // STREAMS & BUFFER
 
+// Stream is a flow
+// Buffer is a container having a chunk of data
+
 // couple of different types of steam that is read streams or the right streams
 
 const fs = require('fs');
