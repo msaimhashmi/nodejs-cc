@@ -1,4 +1,5 @@
 const http = require('http');
+const fs = require('fs');
 
 //This callback function run every time a request comes into our server so we request whatever we want, like the homepage.
 // it takes 2 params request and response.
@@ -19,6 +20,28 @@ const server = http.createServer((req, res)=>{
 
     // // 3: end the response 
     // res.end();
+
+
+
+
+    // RETURNING HTML PAGES
+    res.setHeader('Content-Type', 'text/html');
+
+    fs.readFile('./views/index.html', (err, data) => {
+        if(err){
+            console.log(err);
+            res.end();
+        }else{
+            // if we're just sending one thing into res.write we don't need this whole line here, we can send inside res.end() directly.
+            res.end(data);
+            
+            // if we are using multiple things then use this way.
+            // res.write(data);
+            // res.end();
+            
+        }
+    });
+
 });
 
 //To listen to requests we need to call listen method.
