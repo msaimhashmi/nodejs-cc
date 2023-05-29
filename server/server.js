@@ -8,17 +8,17 @@ const server = http.createServer((req, res)=>{
 
     // RESPONSE OBJECT
 
-    // 1: set header content type
-    res.setHeader('Content-Type', 'text/html');
+    // // 1: set header content type
+    // res.setHeader('Content-Type', 'text/html');
 
-    // 2: send data back to the browser
-    res.write('<head><link rel="stylesheet" href="#"></head>')
-    res.write('this is plain text'); // use write to write the response.
-    res.write('<h2>this is heading</h2>');
-    res.write('<p>this is paragraph</p>');
+    // // 2: send data back to the browser
+    // res.write('<head><link rel="stylesheet" href="#"></head>')
+    // res.write('this is plain text'); // use write to write the response.
+    // res.write('<h2>this is heading</h2>');
+    // res.write('<p>this is paragraph</p>');
 
-    // 3: end the response 
-    res.end();
+    // // 3: end the response 
+    // res.end();
 });
 
 //To listen to requests we need to call listen method.
