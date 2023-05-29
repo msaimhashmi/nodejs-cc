@@ -4,7 +4,21 @@ const http = require('http');
 // it takes 2 params request and response.
 //This console run when the request is hit/created from the listening port localhost:3000
 const server = http.createServer((req, res)=>{
-    console.log('request created');
+    console.log(req.url, req.method);
+
+    // RESPONSE OBJECT
+
+    // 1: set header content type
+    res.setHeader('Content-Type', 'text/html');
+
+    // 2: send data back to the browser
+    res.write('<head><link rel="stylesheet" href="#"></head>')
+    res.write('this is plain text'); // use write to write the response.
+    res.write('<h2>this is heading</h2>');
+    res.write('<p>this is paragraph</p>');
+
+    // 3: end the response 
+    res.end();
 });
 
 //To listen to requests we need to call listen method.
