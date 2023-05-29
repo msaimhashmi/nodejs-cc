@@ -25,20 +25,51 @@ const server = http.createServer((req, res)=>{
 
 
     // RETURNING HTML PAGES
+    // res.setHeader('Content-Type', 'text/html');
+
+    // fs.readFile('./views/index.html', (err, data) => {
+    //     if(err){
+    //         console.log(err);
+    //         res.end();
+    //     }else{
+    //         // if we're just sending one thing into res.write we don't need this whole line here, we can send inside res.end() directly.
+    //         res.end(data);
+            
+    //         // if we are using multiple things then use this way.
+    //         // res.write(data);
+    //         // res.end();
+            
+    //     }
+    // });
+
+
+
+
+
+    // BASIC ROUTING
+
     res.setHeader('Content-Type', 'text/html');
 
-    fs.readFile('./views/index.html', (err, data) => {
+    let path = './views/';
+
+    switch(req.url){
+        case '/':
+            path += 'index.html';
+            break;
+        case '/about':
+            path += 'about.html';
+            break;
+        default:
+            path += '404.html';
+            break;
+    }
+
+    fs.readFile(path, (err, data) => {
         if(err){
             console.log(err);
             res.end();
         }else{
-            // if we're just sending one thing into res.write we don't need this whole line here, we can send inside res.end() directly.
             res.end(data);
-            
-            // if we are using multiple things then use this way.
-            // res.write(data);
-            // res.end();
-            
         }
     });
 
