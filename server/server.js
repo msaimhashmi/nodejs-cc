@@ -1,11 +1,26 @@
 const http = require('http');
 const fs = require('fs');
+const _ = require('lodash');
 
 //This callback function run every time a request comes into our server so we request whatever we want, like the homepage.
 // it takes 2 params request and response.
 //This console run when the request is hit/created from the listening port localhost:3000
 const server = http.createServer((req, res)=>{
-    console.log(req.url, req.method);
+
+    // LODASH
+    const num = _.random(0,50);
+    console.log(num);
+
+    const text = _.once(() => {
+        console.log('hello');
+    });
+
+    text();
+    text();
+    text();
+    text();
+
+
 
     // RESPONSE OBJECT
 
