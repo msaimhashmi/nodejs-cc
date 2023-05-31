@@ -12,6 +12,12 @@ app.get('/', (req,res) => {
     
     // we use send in express
     // it automatically set content types and headers and status also. 
-    res.send('<h3>This is first express request!</h3>');
+    // res.send('<h3>This is first express request!</h3>');
 
-})
+    // to sendFile we need to mention here the root path of this current folder because by default ./ take the root path of computer.
+    res.sendFile('./views/index.html', {root:__dirname})
+});
+
+app.get('/about', (req,res)=>{
+    res.sendFile('./views/about.html', {root:__dirname})
+});
