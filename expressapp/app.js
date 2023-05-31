@@ -21,3 +21,19 @@ app.get('/', (req,res) => {
 app.get('/about', (req,res)=>{
     res.sendFile('./views/about.html', {root:__dirname})
 });
+
+
+
+// redirects
+app.get('/about-us', (req,res)=>{
+    res.redirect('/about');
+});
+
+// 404
+
+// 'use' function fire for every single request coming in.
+// its going to fire for every single request until of the URL if the code reaches this point if we don't have a match upto here. At this point we're sending the 404 page to the browser.
+// it should use at the bottom.
+app.use((req,res)=>{
+    res.sendFile('./views/404.html', {root:__dirname})
+});
