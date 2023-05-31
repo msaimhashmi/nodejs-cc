@@ -3,6 +3,9 @@ const express = require('express');
 // express app
 const app = express();
 
+// register view engine
+app.set('view engine', 'ejs'); //set is used to configure some setting 'view engine' which is one of them.
+
 // listen for requests
 app.listen(3000); // this also return an instance of the server
 
@@ -15,18 +18,19 @@ app.get('/', (req,res) => {
     // res.send('<h3>This is first express request!</h3>');
 
     // to sendFile we need to mention here the root path of this current folder because by default ./ take the root path of computer.
-    res.sendFile('./views/index.html', {root:__dirname})
+    // res.sendFile('./views/index.html', {root:__dirname})
+
+    // VIEW ENGINE
+    res.render('index');
 });
 
 app.get('/about', (req,res)=>{
-    res.sendFile('./views/about.html', {root:__dirname})
+    // res.sendFile('./views/about.html', {root:__dirname})
+    res.render('about');
 });
 
-
-
-// redirects
-app.get('/about-us', (req,res)=>{
-    res.redirect('/about');
+app.get('/create', (req,res)=>{
+    res.render('create');
 });
 
 // 404
@@ -35,5 +39,5 @@ app.get('/about-us', (req,res)=>{
 // its going to fire for every single request until of the URL if the code reaches this point if we don't have a match upto here. At this point we're sending the 404 page to the browser.
 // it should use at the bottom.
 app.use((req,res)=>{
-    res.sendFile('./views/404.html', {root:__dirname})
+    res.status(404).render('404');
 });
