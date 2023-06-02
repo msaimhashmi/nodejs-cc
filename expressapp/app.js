@@ -21,16 +21,25 @@ app.get('/', (req,res) => {
     // res.sendFile('./views/index.html', {root:__dirname})
 
     // VIEW ENGINE
-    res.render('index');
+
+    const blogs = [
+        {title: 'Blog title one', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+        {title: 'Blog title two', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+        {title: 'Blog title three', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+        {title: 'Blog title four', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+        {title: 'Blog title five', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    ]
+
+    res.render('index', {title:'Home', blogs});
 });
 
 app.get('/about', (req,res)=>{
     // res.sendFile('./views/about.html', {root:__dirname})
-    res.render('about');
+    res.render('about', {title:'About'}); 
 });
 
 app.get('/blogs/create', (req,res)=>{
-    res.render('create');
+    res.render('create', {title:'Create a new blog post'});
 });
 
 // 404
@@ -39,5 +48,12 @@ app.get('/blogs/create', (req,res)=>{
 // its going to fire for every single request until of the URL if the code reaches this point if we don't have a match upto here. At this point we're sending the 404 page to the browser.
 // it should use at the bottom.
 app.use((req,res)=>{
-    res.status(404).render('404');
+    res.status(404).render('404', {title:'404 Not found'});
 });
+
+
+// SERVER-SIDE RENDERING
+
+// 1. Pass view (HTML) files into the View/template engine.
+// 2. The engine looks for any conditional content, loops, conditions, etc, and converts them to the final result.
+// 3. Show results to the browser.
