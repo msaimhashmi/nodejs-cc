@@ -32,8 +32,19 @@ app.listen(3000); // this also return an instance of the server
 //     next();
 // });
 
-// THIRD-PARTY MIDDLEWARES
 
+
+// MIDDLEWARE & STATIC FILES (Like: css, images, etc.)
+
+// By default any files (like CSS, images, etc.) aren't accessible. To access or public that we need to use the default 'static files middleware' of the express.
+// we have to specify what files should be allowed to be accessed. What files should be public
+// use ready-made middleware that comes along with Express. That is static middleware.
+
+app.use(express.static('public'));
+
+
+
+// THIRD-PARTY MIDDLEWARES
 app.use(morgan('dev'));
 
 
