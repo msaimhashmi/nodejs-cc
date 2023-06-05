@@ -9,6 +9,22 @@ app.set('view engine', 'ejs'); //set is used to configure some setting 'view eng
 // listen for requests
 app.listen(3000); // this also return an instance of the server
 
+
+
+// MIDDLEWARE
+// Any kind of function run between getting requests and sending a response, technically called middleware.
+// The use method run for every type of request to all routes including post request. While the other methods like 'get' is only us for get request and they also are middlewares.
+// Middleware runs top to bottom in our code.
+
+app.use((req, res, next)=>{
+    console.log('New request created!');
+    console.log('Host:', req.hostname);
+    console.log('Path:', req.path);
+    console.log('Method:', req.method);
+});
+
+
+
 // respond to requests
 // use get for get request which takes 2 arguments (path, function with req,res)
 app.get('/', (req,res) => {
