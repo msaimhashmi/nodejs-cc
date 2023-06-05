@@ -1,8 +1,16 @@
 const express = require('express');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 
 // express app
 const app = express();
+
+// connect to database
+const dbURI = 'mongodb+srv://msaim477:msaim477@learning.0ajatuw.mongodb.net/nodejs-cc?retryWrites=true&w=majority';
+mongoose.connect(dbURI)
+    .then((result)=> console.log('connected to the database!'))
+    .catch((err)=> console.log(err));
+
 
 // register view engine
 app.set('view engine', 'ejs'); //set is used to configure some setting 'view engine' which is one of them.
