@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 
 // express app
 const app = express();
@@ -16,20 +17,27 @@ app.listen(3000); // this also return an instance of the server
 // The use method run for every type of request to all routes including post request. While the other methods like 'get' is only us for get request and they also are middlewares.
 // Middleware runs top to bottom in our code.
 
-app.use((req, res, next)=>{
-    console.log('New request created!');
-    console.log('Host:', req.hostname);
-    console.log('Path:', req.path);
-    console.log('Method:', req.method);
+// app.use((req, res, next)=>{
+//     console.log('New request created!');
+//     console.log('Host:', req.hostname);
+//     console.log('Path:', req.path);
+//     console.log('Method:', req.method);
 
-    // Use next to move on to the next if not sending any response.
-    next();
-});
+//     // Use next to move on to the next if not sending any response.
+//     next();
+// });
 
-app.use((req, res, next)=>{
-    console.log('in the next middleware!');
-    next();
-});
+// app.use((req, res, next)=>{
+//     console.log('in the next middleware!');
+//     next();
+// });
+
+// THIRD-PARTY MIDDLEWARES
+
+app.use(morgan('dev'));
+
+
+
 
 // respond to requests
 // use get for get request which takes 2 arguments (path, function with req,res)
