@@ -21,9 +21,15 @@ app.use((req, res, next)=>{
     console.log('Host:', req.hostname);
     console.log('Path:', req.path);
     console.log('Method:', req.method);
+
+    // Use next to move on to the next if not sending any response.
+    next();
 });
 
-
+app.use((req, res, next)=>{
+    console.log('in the next middleware!');
+    next();
+});
 
 // respond to requests
 // use get for get request which takes 2 arguments (path, function with req,res)
