@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const Blog = require('./models/blog');
 
 // express app
 const app = express();
@@ -8,15 +9,15 @@ const app = express();
 // connect to database
 const dbURI = 'mongodb+srv://msaim477:msaim477@learning.0ajatuw.mongodb.net/nodejs-cc?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
-    .then((result)=> console.log('connected to the database!'))
+    .then((result)=> app.listen(3000))
     .catch((err)=> console.log(err));
 
 
 // register view engine
 app.set('view engine', 'ejs'); //set is used to configure some setting 'view engine' which is one of them.
 
-// listen for requests
-app.listen(3000); // this also return an instance of the server
+// // listen for requests
+// app.listen(3000); // this also return an instance of the server
 
 
 
@@ -54,6 +55,47 @@ app.use(express.static('public'));
 
 // THIRD-PARTY MIDDLEWARES
 app.use(morgan('dev'));
+
+
+
+// mongoose and mongo sandbox routes
+app.get('/add-blog', (req,res)=>{
+    const blog = new Blog({
+        title: 'My third blog',
+        snippet: 'My third blog snippet',
+        body: 'My third blog body'
+    });
+
+    blog.save()
+        .then((result)=>{
+            res.send(result);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+});
+
+app.get('/all-blogs', (req,res)=>{
+    Blog.find()
+        .then((result)=>{
+            res.send(result);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+});
+
+app.get('/single-blog', (req,res)=>{
+    Blog.findById('647f536a1ab8932a4e03ff85')
+        .then((result)=>{
+            res.send(result);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+});
+
+
 
 
 
