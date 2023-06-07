@@ -59,41 +59,41 @@ app.use(morgan('dev'));
 
 
 // mongoose and mongo sandbox routes
-app.get('/add-blog', (req,res)=>{
-    const blog = new Blog({
-        title: 'My third blog',
-        snippet: 'My third blog snippet',
-        body: 'My third blog body'
-    });
+// app.get('/add-blog', (req,res)=>{
+//     const blog = new Blog({
+//         title: 'My third blog',
+//         snippet: 'My third blog snippet',
+//         body: 'My third blog body'
+//     });
 
-    blog.save()
-        .then((result)=>{
-            res.send(result);
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
-});
+//     blog.save()
+//         .then((result)=>{
+//             res.send(result);
+//         })
+//         .catch((err)=>{
+//             console.log(err);
+//         });
+// });
 
-app.get('/all-blogs', (req,res)=>{
-    Blog.find()
-        .then((result)=>{
-            res.send(result);
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
-});
+// app.get('/all-blogs', (req,res)=>{
+//     Blog.find()
+//         .then((result)=>{
+//             res.send(result);
+//         })
+//         .catch((err)=>{
+//             console.log(err);
+//         });
+// });
 
-app.get('/single-blog', (req,res)=>{
-    Blog.findById('647f536a1ab8932a4e03ff85')
-        .then((result)=>{
-            res.send(result);
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
-});
+// app.get('/single-blog', (req,res)=>{
+//     Blog.findById('647f536a1ab8932a4e03ff85')
+//         .then((result)=>{
+//             res.send(result);
+//         })
+//         .catch((err)=>{
+//             console.log(err);
+//         });
+// });
 
 
 
@@ -113,20 +113,33 @@ app.get('/', (req,res) => {
 
     // VIEW ENGINE
 
-    const blogs = [
-        {title: 'Blog title one', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-        {title: 'Blog title two', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-        {title: 'Blog title three', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-        {title: 'Blog title four', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-        {title: 'Blog title five', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-    ]
+    // const blogs = [
+    //     {title: 'Blog title one', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    //     {title: 'Blog title two', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    //     {title: 'Blog title three', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    //     {title: 'Blog title four', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    //     {title: 'Blog title five', snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+    // ]
+    // res.render('index', {title:'Home', blogs});
 
-    res.render('index', {title:'Home', blogs});
+    res.redirect('/blogs');
 });
 
 app.get('/about', (req,res)=>{
     // res.sendFile('./views/about.html', {root:__dirname})
     res.render('about', {title:'About'}); 
+});
+
+
+// blog routes
+app.get('/blogs', (req,res)=>{
+    Blog.find().sort({createdAt: -1})
+        .then((result)=>{
+            res.render('index.ejs', {title:'All Blogs', blogs: result});
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
 });
 
 app.get('/blogs/create', (req,res)=>{
