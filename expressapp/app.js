@@ -51,6 +51,10 @@ app.set('view engine', 'ejs'); //set is used to configure some setting 'view eng
 
 app.use(express.static('public'));
 
+// This middleware takes all the URL encoded data that comes along with the URL on form submit and it passes that into an object that we can use on the request object.
+// When we use this middleware so we can access data by this (req. body).
+app.use(express.urlencoded({extended: true}));
+
 
 
 // THIRD-PARTY MIDDLEWARES
@@ -144,6 +148,17 @@ app.get('/blogs', (req,res)=>{
 
 app.get('/blogs/create', (req,res)=>{
     res.render('create', {title:'Create a new blog post'});
+});
+
+app.post('/blogs', (req,res)=>{
+    const blog = new Blog(req.body);
+    blog.save()
+        .then((result)=>{
+            res.redirect('/blogs');
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
 });
 
 // 404
